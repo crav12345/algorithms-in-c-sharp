@@ -8,6 +8,104 @@ namespace Algorithms
     public static class Sorts
     {
         /// <summary>
+        /// Method <c>MergeSort</c> sorts an array of integers using a divide-
+        /// and-conquer technique. It recursively breaks the array into
+        /// subarrays until it cannot anymore. Then it sorts the subarrays and
+        /// merges them back together, taking the smallest of the two values at
+        /// the top of the two subarrays. This process is done until the sorted
+        /// contents are merged back into the full-size array.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="p"></param>
+        /// <param name="r"></param>
+        public static void MergeSort(int[] array, int p, int r)
+        {
+            // TODO: Need to clean up output of MergeSort. Should study it more
+            // too.
+            if (p < r)
+            {
+                int q = (int)MathF.Floor((p + r) / (float)2.0);
+                MergeSort(array, p, q);
+                MergeSort(array, q + 1, r);
+                Merge(array, p, q, r);
+            }
+
+            PrintArray(array);
+        }
+
+        /// <summary>
+        /// Method <c>Merge</c> completes merges for the recursive MergeSort.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
+        /// <param name="r"></param>
+        public static void Merge(int[] array, int p, int q, int r)
+        {
+            int n1 = q - p + 1; // Highest index of subarray A[p...q].
+            int n2 = r - q;     // Highest index of subarray A[q + 1...r].
+            
+            int i, j;
+
+            // Initialize the subarrays w/ extra index for sentinels.
+            int[] lt = new int[n1];
+            int[] rt = new int[n2];
+
+            // Fill left subarray.
+            for (i = 0; i < n1; i++)
+                lt[i] = array[p + i];
+
+            Console.Write("Subarray left: ");
+            PrintArray(lt);
+
+            // Fill right subarray.
+            for (j = 0; j < n2; j++)
+                rt[j] = array[q + 1 + j];
+
+            Console.Write("Subarray right: ");
+            PrintArray(rt);
+
+            // Sentinel values negate the need to check whether either subarray
+            // is empty in each basic step.
+            // lt[n1 + 1] = sentinel
+            // rt[n2 + 1] = sentinel
+
+            i = 0;
+            j = 0;
+            
+            int k = p;
+
+            while (i < n1 && j < n2) // Should I for-loop this?
+            {
+                if (lt[i] <= rt[j])
+                {
+                    array[k] = lt[i];
+                    i++;
+                }
+                else
+                {
+                    array[k] = rt[j];
+                    j++;
+                }
+
+                k++;
+            }
+
+            while (i < n1)
+            {
+                array[k] = lt[i];
+                i++;
+                k++;
+            }
+            while (j < n2)
+            {
+                array[k] = rt[j];
+                j++;
+                k++;
+            }
+        }
+
+        /// <summary>
         /// Method <c>InsertionSort</c> sorts an array of integers by moving
         /// each integer into its proper position in the sorted subarray by
         /// comparing it to its preceeding values.

@@ -61,10 +61,11 @@ namespace Algorithms
 
                 input = Console.ReadLine();
 
-                if (input != "0" && ValidateArrayInput(input))
+                if (input == "0")
+                    Console.WriteLine("...");
+                else if (ValidateArrayInput(input))
                     HandleSortMenu(input);
-                
-                if (!ValidateArrayInput(input))
+                else
                     Console.WriteLine("Please provide valid input.");
             }
             while (input != "0");
@@ -104,8 +105,8 @@ namespace Algorithms
                 Console.WriteLine("Your array: " + arrayString);
                 Console.WriteLine("=============================================");
                 Console.WriteLine("Please input a number to select an option:");
-                // Console.WriteLine("1. Merge sort");
-                // Console.WriteLine("2. Quick sort");
+                Console.WriteLine("1. Merge sort");
+                //Console.WriteLine("2. Quick sort");
                 Console.WriteLine("3. Insertion sort");
                 Console.WriteLine("4. Bubble sort");
                 Console.WriteLine("5. Selection sort");
@@ -118,7 +119,11 @@ namespace Algorithms
 
                 if (input == "1")
                 {
-
+                    Console.WriteLine("Merge sort's order of growth is O(n log n):");
+                    Console.WriteLine("OUTPUT:");
+                    Sorts.MergeSort(processedArray, 0, processedArray.Length - 1);
+                    Console.WriteLine("DONE");
+                    Console.WriteLine();
                 }
                 else if (input == "2")
                 {
