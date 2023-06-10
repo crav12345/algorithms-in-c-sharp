@@ -90,13 +90,15 @@ namespace Algorithms
         static void HandleSortMenu(string arrayToSort)
         {
             string input;
+            int[] processedArray;
 
             // Process the string containing the validated array.
             string arrayString = Regex.Replace(arrayToSort, @"\s+", " ");
-            int[] processedArray = arrayString.Split(' ').Select(Int32.Parse).ToArray();
 
             do
             {
+                processedArray = arrayString.Split(' ').Select(Int32.Parse).ToArray();
+
                 Console.WriteLine("=============================================");
                 Console.WriteLine("HOW WOULD YOU LIKE TO SORT THIS ARRAY?");
                 Console.WriteLine("Your array: " + arrayString);
@@ -105,8 +107,8 @@ namespace Algorithms
                 // Console.WriteLine("1. Merge sort");
                 // Console.WriteLine("2. Quick sort");
                 Console.WriteLine("3. Insertion sort");
-                // Console.WriteLine("4. Bubble sort");
-                // Console.WriteLine("5. Selection sort");
+                Console.WriteLine("4. Bubble sort");
+                Console.WriteLine("5. Selection sort");
                 Console.WriteLine("0. Go back.");
                 Console.WriteLine("=============================================");
 
@@ -114,12 +116,44 @@ namespace Algorithms
 
                 Console.WriteLine();
 
-                if (input == "3")
+                if (input == "1")
                 {
-                    Console.WriteLine("Insertion sort output:");
+
+                }
+                else if (input == "2")
+                {
+
+                }
+                else if (input == "3")
+                {
+                    Console.WriteLine("Insertion sort's order of growth is O(n^2):");
+                    Console.WriteLine("OUTPUT:");
                     Sorts.InsertionSort(processedArray);
                     Console.WriteLine("DONE");
+                    Console.WriteLine();
                 }
+                else if (input == "4")
+                {
+                    Console.WriteLine("Bubble sort's order of growth is O(n^2):");
+                    Console.WriteLine("OUTPUT:");
+                    Sorts.BubbleSort(processedArray);
+                    Console.WriteLine("DONE");
+                    Console.WriteLine();
+                }
+                else if (input == "5")
+                {
+                    Console.WriteLine("Selection sort's order of growth is O(n^2):");
+                    Console.WriteLine("OUTPUT:");
+                    Sorts.SelectionSort(processedArray);
+                    Console.WriteLine("DONE");
+                    Console.WriteLine();
+                }
+                else if (input == "0")
+                {
+                    Console.WriteLine("...");
+                }
+                else
+                    Console.WriteLine("Please provide valid input.");
             }
             while (input != "0");
         }
