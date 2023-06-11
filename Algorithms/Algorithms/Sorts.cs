@@ -20,8 +20,6 @@ namespace Algorithms
         /// <param name="r"></param>
         public static void MergeSort(int[] array, int p, int r)
         {
-            // TODO: Need to clean up output of MergeSort. Should study it more
-            // too.
             if (p < r)
             {
                 int q = (int)MathF.Floor((p + r) / (float)2.0);
@@ -29,8 +27,6 @@ namespace Algorithms
                 MergeSort(array, q + 1, r);
                 Merge(array, p, q, r);
             }
-
-            PrintArray(array);
         }
 
         /// <summary>
@@ -42,12 +38,12 @@ namespace Algorithms
         /// <param name="r"></param>
         public static void Merge(int[] array, int p, int q, int r)
         {
-            int n1 = q - p + 1; // Highest index of subarray A[p...q].
-            int n2 = r - q;     // Highest index of subarray A[q + 1...r].
+            int n1 = q - p + 1; // Length of subarray A[p...q].
+            int n2 = r - q;     // Length of subarray A[q + 1...r].
             
-            int i, j;
+            int i, j, k;
 
-            // Initialize the subarrays w/ extra index for sentinels.
+            // Initialize the subarrays.
             int[] lt = new int[n1];
             int[] rt = new int[n2];
 
@@ -55,29 +51,21 @@ namespace Algorithms
             for (i = 0; i < n1; i++)
                 lt[i] = array[p + i];
 
-            Console.Write("Subarray left: ");
-            PrintArray(lt);
-
             // Fill right subarray.
             for (j = 0; j < n2; j++)
                 rt[j] = array[q + 1 + j];
 
-            Console.Write("Subarray right: ");
+            Console.Write("Subarrays: ");
+            PrintArray(lt, false);
             PrintArray(rt);
-
-            // Sentinel values negate the need to check whether either subarray
-            // is empty in each basic step.
-            // lt[n1 + 1] = sentinel
-            // rt[n2 + 1] = sentinel
 
             i = 0;
             j = 0;
-            
-            int k = p;
 
-            while (i < n1 && j < n2) // Should I for-loop this?
+            // Merge the subarrays by adding smallest top value.
+            for (k = p; k <= r; k++)
             {
-                if (lt[i] <= rt[j])
+                if ((i < n1 && j == n2) || (i < n1 && lt[i] <= rt[j]))
                 {
                     array[k] = lt[i];
                     i++;
@@ -88,20 +76,8 @@ namespace Algorithms
                     j++;
                 }
 
-                k++;
-            }
-
-            while (i < n1)
-            {
-                array[k] = lt[i];
-                i++;
-                k++;
-            }
-            while (j < n2)
-            {
-                array[k] = rt[j];
-                j++;
-                k++;
+                Console.WriteLine("Add next sorted value:");
+                PrintArray(array);
             }
         }
 
@@ -190,7 +166,7 @@ namespace Algorithms
         /// Method <c>PrintArray</c> prints the contents of an integer array.
         /// </summary>
         /// <param name="array"></param>
-        public static void PrintArray(int[] array)
+        public static void PrintArray(int[] array, bool skipLine = true)
         {
             Console.Write("[ ");
 
@@ -202,7 +178,10 @@ namespace Algorithms
                     Console.Write(", ");
             }
 
-            Console.WriteLine(" ]");
+            Console.Write(" ]");
+
+            if (skipLine)
+                Console.WriteLine();
         }
     }
 }

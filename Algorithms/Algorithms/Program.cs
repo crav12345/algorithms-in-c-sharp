@@ -106,7 +106,7 @@ namespace Algorithms
                 Console.WriteLine("=============================================");
                 Console.WriteLine("Please input a number to select an option:");
                 Console.WriteLine("1. Merge sort");
-                //Console.WriteLine("2. Quick sort");
+                Console.WriteLine("2. Quick sort");
                 Console.WriteLine("3. Insertion sort");
                 Console.WriteLine("4. Bubble sort");
                 Console.WriteLine("5. Selection sort");
@@ -127,7 +127,11 @@ namespace Algorithms
                 }
                 else if (input == "2")
                 {
-
+                    Console.WriteLine("Quick sort's order of growth is O(n log n):");
+                    Console.WriteLine("OUTPUT:");
+                    //Sorts.QuickSort(processedArray, 0, processedArray.Length - 1);
+                    Console.WriteLine("DONE");
+                    Console.WriteLine();
                 }
                 else if (input == "3")
                 {
