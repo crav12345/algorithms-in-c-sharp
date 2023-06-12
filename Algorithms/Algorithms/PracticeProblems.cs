@@ -46,5 +46,17 @@ namespace Algorithms
 
             Console.WriteLine(" ]");
         }
+
+        public static void ReverseArray(int[] array)
+        {
+            int[] reversedArray = new int[array.Length];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                reversedArray[i] = array[array.Length - i - 1];
+            }
+
+            Sorts.PrintArray(reversedArray);
+        }
     }
 }

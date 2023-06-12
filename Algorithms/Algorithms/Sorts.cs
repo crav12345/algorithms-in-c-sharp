@@ -18,14 +18,14 @@ namespace Algorithms
         /// <param name="array"></param>
         /// <param name="p"></param>
         /// <param name="r"></param>
-        public static void MergeSort(int[] array, int p, int r)
+        public static void MergeSort(int[] array, int p, int r, bool printOutput = true)
         {
             if (p < r)
             {
                 int q = (int)MathF.Floor((p + r) / (float)2.0);
-                MergeSort(array, p, q);
-                MergeSort(array, q + 1, r);
-                Merge(array, p, q, r);
+                MergeSort(array, p, q, false);
+                MergeSort(array, q + 1, r, false);
+                Merge(array, p, q, r, printOutput);
             }
         }
 
@@ -36,7 +36,7 @@ namespace Algorithms
         /// <param name="p"></param>
         /// <param name="q"></param>
         /// <param name="r"></param>
-        public static void Merge(int[] array, int p, int q, int r)
+        private static void Merge(int[] array, int p, int q, int r, bool printOutput)
         {
             int n1 = q - p + 1; // Length of subarray A[p...q].
             int n2 = r - q;     // Length of subarray A[q + 1...r].
@@ -55,9 +55,12 @@ namespace Algorithms
             for (j = 0; j < n2; j++)
                 rt[j] = array[q + 1 + j];
 
-            Console.Write("Subarrays: ");
-            PrintArray(lt, false);
-            PrintArray(rt);
+            if (printOutput)
+            {
+                Console.Write("Subarrays: ");
+                PrintArray(lt, false);
+                PrintArray(rt);
+            }
 
             i = 0;
             j = 0;
@@ -76,8 +79,11 @@ namespace Algorithms
                     j++;
                 }
 
-                Console.WriteLine("Add next sorted value:");
-                PrintArray(array);
+                if (printOutput)
+                {
+                    Console.WriteLine("Add next sorted value:");
+                    PrintArray(array);
+                }
             }
         }
 

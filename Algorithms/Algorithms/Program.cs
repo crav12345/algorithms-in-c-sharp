@@ -28,7 +28,7 @@ namespace Algorithms
                 Console.WriteLine("=============================================");
                 Console.WriteLine("Please input a number to select an option:");
                 Console.WriteLine("1. Sorting algorithms");
-                // Console.WriteLine("2. Searching algorithms");
+                Console.WriteLine("2. Searching algorithms");
                 // Console.WriteLine("3. Pathing algorithms");
                 Console.WriteLine("4. Common practice problems");
                 Console.WriteLine("0. Quit");
@@ -38,6 +38,8 @@ namespace Algorithms
 
                 if (input == "1")
                     HandleSortOption();
+                else if (input == "2")
+                    HandleSearchOption();
                 else if (input == "4")
                     HandlePracticeProblemsOption();
                 else if (input == "0")
@@ -55,13 +57,7 @@ namespace Algorithms
 
             do
             {
-                Console.WriteLine("=============================================");
-                Console.WriteLine("PLEASE ENTER A LIST OF NUMBERS TO SORT. EACH");
-                Console.WriteLine("VALUE SHOULD BE SEPARATED WITH A SPACE.");
-                Console.WriteLine("Example: 10 4 152 2");
-                Console.WriteLine();
-                Console.WriteLine("Enter '0' to go back to main menu.");
-                Console.WriteLine("=============================================");
+                RequestArrayInput();
 
                 input = Console.ReadLine();
 
@@ -73,23 +69,6 @@ namespace Algorithms
                     Console.WriteLine("Please provide valid input.");
             }
             while (input != "0");
-        }
-
-        static bool ValidateArrayInput(string input)
-        {
-            bool result = true;
-
-            Char[] charArray = input.ToCharArray();
-
-            foreach (char character in charArray)
-            {
-                if (!Char.IsWhiteSpace(character) && !Char.IsDigit(character))
-                {
-                    result = false;
-                }
-            }
-
-            return result;
         }
 
         static void HandleSortMenu(string arrayToSort)
@@ -174,7 +153,58 @@ namespace Algorithms
             while (input != "0");
         }
 
-        public static void HandlePracticeProblemsOption()
+        static void HandleSearchOption()
+        {
+            string input;
+
+            do
+            {
+                RequestArrayInput();
+
+                input = Console.ReadLine();
+
+                if (input == "0")
+                    Console.WriteLine("...");
+                else if (ValidateArrayInput(input))
+                    HandleSearchMenu(input);
+                else
+                    Console.WriteLine("Please provide valid input.");
+            }
+            while (input != "0");
+        }
+
+        static void HandleSearchMenu(string arrayToSort)
+        {
+            string input;
+
+            // Clean up the string containing the validated array.
+            string arrayString = Regex.Replace(arrayToSort.Trim(), @"\s+", " ");
+
+            // Convert to an integer array.
+            int[] processedArray = arrayString.Split(' ').Select(Int32.Parse).ToArray();
+
+            // Sort the array so it can be properly searched through.
+            Sorts.MergeSort(processedArray, 0, processedArray.Length - 1, false);
+
+            do
+            {
+                Console.WriteLine("=============================================");
+                Console.WriteLine("HOW WOULD YOU LIKE TO SEARCH THIS ARRAY?");
+                Console.WriteLine("Your array has been sorted: ");
+                Sorts.PrintArray(processedArray);
+                Console.WriteLine("=============================================");
+                Console.WriteLine("Please input a number to select an option:");
+                Console.WriteLine("0. Go back.");
+                Console.WriteLine("=============================================");
+
+                input = Console.ReadLine();
+
+                Console.WriteLine();
+            }
+            while (input != "0");
+        }
+
+        static void HandlePracticeProblemsOption()
         {
             string input;
 
@@ -206,6 +236,10 @@ namespace Algorithms
                 {
                     HandleFizzBuzzOption();
                 }
+                else if (input == "2")
+                {
+                    HandleReverseArrayOption();
+                }
                 else if (input == "0")
                 {
                     Console.WriteLine("...");
@@ -216,7 +250,7 @@ namespace Algorithms
             while (input != "0");
         }
 
-        public static void HandleFizzBuzzOption()
+        static void HandleFizzBuzzOption()
         {
             string input;
 
@@ -242,7 +276,60 @@ namespace Algorithms
             while (input != "0");
         }
 
-        public static bool ValidateIntegerInput(string input)
+        static void HandleReverseArrayOption()
+        {
+            string input;
+
+            do
+            {
+                RequestArrayInput();
+
+                input = Console.ReadLine();
+
+                if (input == "0")
+                    Console.WriteLine("...");
+                else if (ValidateArrayInput(input))
+                {
+                    // Clean up the string containing the validated array.
+                    string arrayString = Regex.Replace(input.Trim(), @"\s+", " ");
+                    int[] processedArray = arrayString.Split(' ').Select(Int32.Parse).ToArray();
+                    PracticeProblems.ReverseArray(processedArray);
+                }
+                else
+                    Console.WriteLine("Please provide valid input.");
+            }
+            while (input != "0");
+        }
+
+        static void RequestArrayInput()
+        {
+            Console.WriteLine("=============================================");
+            Console.WriteLine("PLEASE ENTER A SERIES OF INTEGERS. EACH");
+            Console.WriteLine("VALUE SHOULD BE SEPARATED WITH A SPACE.");
+            Console.WriteLine("Example: 10 4 152 2 1394");
+            Console.WriteLine();
+            Console.WriteLine("Enter '0' to go back to main menu.");
+            Console.WriteLine("=============================================");
+        }
+
+        static bool ValidateArrayInput(string input)
+        {
+            bool result = true;
+
+            Char[] charArray = input.ToCharArray();
+
+            foreach (char character in charArray)
+            {
+                if (!Char.IsWhiteSpace(character) && !Char.IsDigit(character))
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        static bool ValidateIntegerInput(string input)
         {
             return int.TryParse(input, out _);
         }
