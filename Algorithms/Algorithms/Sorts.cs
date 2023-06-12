@@ -82,6 +82,57 @@ namespace Algorithms
         }
 
         /// <summary>
+        /// Method <c>QuickSort</c>
+        /// </summary>
+        /// <param name="array"></param>
+        public static void QuickSort(int[] array, int p, int r)
+        {
+            if (p < r)
+            {
+                int q = Partition(array, p, r);
+                QuickSort(array, p, q - 1);
+                QuickSort(array, q + 1, r);
+            }
+        }
+
+        /// <summary>
+        /// Method <c>Partition</c> executes a procedure which rearranges a
+        /// subarray into two smaller (possibly empty) subarrays.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="p"></param>
+        /// <param name="r"></param>
+        public static int Partition(int[] array, int p, int r)
+        {
+            int x = array[r];
+            int i = p - 1;
+
+            int temp;
+
+            for (int j = p; j < r; j++)
+            {
+                if (array[j] <= x)
+                {
+                    i++;
+
+                    temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+
+                    PrintArray(array);
+                }
+            }
+
+            temp = array[i + 1];
+            array[i + 1] = array[r];
+            array[r] = temp;
+
+            PrintArray(array);
+
+            return i++;
+        }
+
+        /// <summary>
         /// Method <c>InsertionSort</c> sorts an array of integers by moving
         /// each integer into its proper position in the sorted subarray by
         /// comparing it to its preceeding values.
@@ -100,7 +151,7 @@ namespace Algorithms
                 while ( i >= 0 && array[i] > key)
                 {
                     array[i + 1] = array[i];
-                    i = i - 1;
+                    i--;
                 }
 
                 array[i + 1] = key;
