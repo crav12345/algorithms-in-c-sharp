@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -15,8 +16,7 @@ namespace Algorithms
                 /*
                  * -- ALSO ADD --
                  * Heap sort
-                 * Binary search
-                 * Linear search
+                 * Quicksort
                  * Depth-first search
                  * Breadth-first search
                  * Dijkstra's algorithm
@@ -29,8 +29,8 @@ namespace Algorithms
                 Console.WriteLine("Please input a number to select an option:");
                 Console.WriteLine("1. Sorting algorithms");
                 Console.WriteLine("2. Searching algorithms");
-                // Console.WriteLine("3. Pathing algorithms");
-                Console.WriteLine("4. Common practice problems");
+                Console.WriteLine("3. Common practice problems");
+                // Console.WriteLine("4. Pathing algorithms");
                 Console.WriteLine("0. Quit");
                 Console.WriteLine("=============================================");
 
@@ -40,7 +40,7 @@ namespace Algorithms
                     HandleSortOption();
                 else if (input == "2")
                     HandleSearchOption();
-                else if (input == "4")
+                else if (input == "3")
                     HandlePracticeProblemsOption();
                 else if (input == "0")
                     Console.WriteLine("Goodbye!");
@@ -194,14 +194,60 @@ namespace Algorithms
                 Sorts.PrintArray(processedArray);
                 Console.WriteLine("=============================================");
                 Console.WriteLine("Please input a number to select an option:");
+                Console.WriteLine("1. Linear search");
+                Console.WriteLine("2. Binary search");
                 Console.WriteLine("0. Go back.");
                 Console.WriteLine("=============================================");
 
                 input = Console.ReadLine();
 
+                if (input == "0")
+                {
+                    Console.WriteLine("...");
+                }
+                else if (ValidateIntegerInput(input) && Convert.ToInt32(input) <= 1)
+                {
+                    int target = HandleTargetSelection();
+
+                    if (input == "1")
+                    {
+                        Searches.LinearSearch(processedArray, target);
+                    }
+                    else if (input == "2")
+                    {
+                        Searches.BinarySearch(target, processedArray, 0, processedArray.Length - 1);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Please provide valid input.");
+                }
+
                 Console.WriteLine();
             }
             while (input != "0");
+        }
+
+        static int HandleTargetSelection()
+        {
+            Console.WriteLine("=============================================");
+            Console.WriteLine("Please input a target integer to search for.");
+            Console.WriteLine("=============================================");
+
+            string input = Console.ReadLine();
+
+            int target = 0;
+
+            if (ValidateIntegerInput(input))
+            {
+                target = Convert.ToInt32(input);
+            }
+            else
+            {
+                Console.WriteLine("Could not convert " + input + " to an integer. Setting target value to 0.");
+            }
+
+            return target;
         }
 
         static void HandlePracticeProblemsOption()
@@ -220,6 +266,7 @@ namespace Algorithms
                  * Light and switch objects
                  * E-commerce store
                  * All ways to make a dollar with coins
+                 * Minimum coins to make a value based on input currency system
                  * String maipulation, sorting, and searching
                  */
                 Console.WriteLine("=============================================");
@@ -227,6 +274,7 @@ namespace Algorithms
                 Console.WriteLine("=============================================");
                 Console.WriteLine("1. Fizz Buzz");
                 Console.WriteLine("2. Reverse an array");
+                Console.WriteLine("3. Light and switch objects");
                 Console.WriteLine("0. Go back.");
                 Console.WriteLine("=============================================");
 
@@ -239,6 +287,10 @@ namespace Algorithms
                 else if (input == "2")
                 {
                     HandleReverseArrayOption();
+                }
+                else if (input == "3")
+                {
+                    HandleLightSwitchOption();
                 }
                 else if (input == "0")
                 {
@@ -297,6 +349,35 @@ namespace Algorithms
                 }
                 else
                     Console.WriteLine("Please provide valid input.");
+            }
+            while (input != "0");
+        }
+
+        static void HandleLightSwitchOption()
+        {
+            string input;
+            ArrayList myLights = new();
+            ArrayList mySwitches = new();
+
+            do
+            {
+                Console.WriteLine("=============================================");
+                Console.WriteLine("WHAT WOULD YOU LIKE TO DO?");
+                Console.WriteLine("1. Create a light.");
+                Console.WriteLine("2. Create switch.");
+                Console.WriteLine("0. Go back.");
+                Console.WriteLine("=============================================");
+
+                input = Console.ReadLine();
+
+                if (input == "1")
+                {
+                    myLights.Add(new Light());
+                }
+                else if (input == "2")
+                {
+                    mySwitches.Add(new Switch());
+                }
             }
             while (input != "0");
         }
