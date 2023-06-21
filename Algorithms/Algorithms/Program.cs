@@ -23,6 +23,20 @@ namespace Algorithms
                  * Bellman-Ford algorithm
                  */
 
+                /*
+                 * -- ALSO ADD --
+                 * Palindromes
+                 * Contact manager
+                 *      - AddContact()
+                 *      - AddListOfContacts()
+                 *      - SearchForContact()
+                 * Light and switch objects
+                 * E-commerce store
+                 * All ways to make a dollar with coins
+                 * Minimum coins to make a value based on input currency system
+                 * String manipulation, sorting, and searching
+                 */
+
                 Console.WriteLine("=============================================");
                 Console.WriteLine("WELCOME TO ALGORITHMS IN C#");
                 Console.WriteLine("=============================================");
@@ -256,25 +270,13 @@ namespace Algorithms
 
             do
             {
-                /*
-                 * -- ALSO ADD --
-                 * Palindromes
-                 * Contact manager
-                 *      - AddContact()
-                 *      - AddListOfContacts()
-                 *      - SearchForContact()
-                 * Light and switch objects
-                 * E-commerce store
-                 * All ways to make a dollar with coins
-                 * Minimum coins to make a value based on input currency system
-                 * String maipulation, sorting, and searching
-                 */
                 Console.WriteLine("=============================================");
                 Console.WriteLine("WHICH SOLUTION WOULD YOU LIKE TO SEE?");
                 Console.WriteLine("=============================================");
                 Console.WriteLine("1. Fizz Buzz");
                 Console.WriteLine("2. Reverse an array");
                 Console.WriteLine("3. Light and switch objects");
+                Console.WriteLine("4. Minimum coins for a value");
                 Console.WriteLine("0. Go back.");
                 Console.WriteLine("=============================================");
 
@@ -291,6 +293,10 @@ namespace Algorithms
                 else if (input == "3")
                 {
                     HandleLightSwitchOption();
+                }
+                else if (input == "4")
+                {
+                    PracticeProblems.MinimumCoins();
                 }
                 else if (input == "0")
                 {

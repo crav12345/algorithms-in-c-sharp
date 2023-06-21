@@ -58,5 +58,44 @@ namespace Algorithms
 
             Sorts.PrintArray(reversedArray);
         }
+
+        public static void MinimumCoins()
+        {
+            int value = 37;
+
+            int[] coins = new int[5];
+            coins[0] = 1;
+            coins[1] = 5;
+            coins[2] = 7;
+            coins[3] = 10;
+            coins[4] = 15;
+
+            int[] table = new int[value + 1];
+
+            // Base case for when value = 0.
+            table[0] = 0;
+
+            // Initialize table of subResults.
+            for (int i = 1; i <= value; i++)
+                table[i] = int.MaxValue;
+            
+            // Compute minimum coins from all values up to value.
+            for (int i = 1; i <= value; i++)
+            {
+                // Go through all coins smaller than i.
+                for (int j = 0; j < coins.Length; j++)
+                {
+                    if (coins[j] <= i)
+                    {
+                        int subResult = table[i - coins[j]];
+
+                        if (subResult != int.MaxValue && subResult + 1 < table[i])
+                            table[i] = subResult + 1;
+                    }
+                }
+            }
+
+            Sorts.PrintArray(table);
+        }
     }
 }
